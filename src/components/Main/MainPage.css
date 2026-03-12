@@ -1,0 +1,91 @@
+.main-page-link {
+  color: #52555f;
+}
+.main-page-link:first-of-type {
+  border-right: 1px solid #e0e5eb;
+  padding-right: 20px;
+}
+.main-page-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 30px;
+}
+.main-page-links-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.logo {
+  display: flex;
+  align-items: center;
+}
+.main-page-main {
+  background-color: #f5f6fb;
+  height: 582px;
+  border-radius: 0 0 0 64px;
+}
+
+.main-page-all-money-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.main-page-all-money-section p {
+  color: #52555fb2;
+}
+
+.main-page-all-money-section > input,
+.main-page-all-money-section > button {
+  background-color: #f5f6fb;
+  border: 2px solid #fff;
+  border-radius: 16px;
+  height: 44px;
+}
+input::placeholder {
+  text-align: center;
+  color: #000;
+}
+.table-spending-button {
+  background-color: #fff;
+  color: #ff751d;
+  border-radius: 16px 16px 0 0;
+  width: 138px;
+}
+.table-profit-button {
+  background-color: #fff;
+  color: #000;
+  border-radius: 16px 16px 0 0;
+  width: 138px;
+}
+.table {
+  height: 579px;
+  width: 1060px;
+  background-color: #fff;
+  border-radius: 30px;
+}
+.product-input {
+  display: flex;
+  align-items: center;
+  border-radius: 30px;
+  overflow: hidden;
+  width: 600px;
+  height: 44px;
+  border: 2px solid #f5f6fb;
+}
+
+.product-input input,
+.product-input select {
+  border: none;
+  outline: none;
+  height: 100%;
+  padding: 0 16px;
+  border-right: 2px solid #f5f6fb;
+}
+.price {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
