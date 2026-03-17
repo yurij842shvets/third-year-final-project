@@ -1,6 +1,6 @@
 import * as React from "react";
 import Paper from "@mui/material/Paper";
-import Table from "@mui/material/Table";
+import MuiTable from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
@@ -9,7 +9,12 @@ import TableRow from "@mui/material/TableRow";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { TableVirtuoso, type TableComponents } from "react-virtuoso";
-// import Summary from "./Summary";
+import { expenseCategories, incomeCategories } from "./data";
+
+type Props = {
+  type: "expense" | "income";
+  rows: Expense[];
+};
 
 interface Expense {
   id: number;
@@ -31,24 +36,7 @@ const columns: ColumnData[] = [
   { dataKey: "description", label: "Опис", width: 150 },
   { dataKey: "category", label: "Категорія", width: 120 },
   { dataKey: "amount", label: "Сума", width: 80, numeric: true },
-  { dataKey: "id", label: "", width: 50 }, // для кнопки видалення
-];
-
-const rows: Expense[] = [
-  {
-    id: 1,
-    date: "05.09.2019",
-    description: "Метро",
-    category: "Транспорт",
-    amount: -30,
-  },
-  {
-    id: 2,
-    date: "05.09.2019",
-    description: "Банани",
-    category: "Продукти",
-    amount: -50,
-  },
+  { dataKey: "id", label: "", width: 50 },
 ];
 
 const VirtuosoTableComponents: TableComponents<Expense> = {
@@ -56,7 +44,7 @@ const VirtuosoTableComponents: TableComponents<Expense> = {
     <TableContainer component={Paper} {...props} ref={ref} />
   )),
   Table: (props: any) => (
-    <Table
+    <MuiTable
       {...props}
       sx={{ borderCollapse: "separate", tableLayout: "fixed" }}
     />
@@ -88,14 +76,26 @@ function fixedHeaderContent() {
   );
 }
 
-function rowContent(_index: number, row: Expense) {
+function rowContent(
+  _index: number,
+  row: Expense,
+  type: "expense" | "income",
+  currentCategories: typeof expenseCategories | typeof incomeCategories,
+) {
+  const categoryName =
+    currentCategories.find((c) => c.name === row.category)?.name ||
+    row.category;
   return (
     <React.Fragment>
       <TableCell>{row.date}</TableCell>
       <TableCell>{row.description}</TableCell>
-      <TableCell>{row.category}</TableCell>
-      <TableCell align="right" sx={{ color: row.amount < 0 ? "red" : "green" }}>
-        {row.amount.toFixed(2)} грн.
+      <TableCell>{categoryName}</TableCell>
+      <TableCell
+        align="right"
+        sx={{ color: type === "expense" ? "red" : "green" }}
+      >
+        {type === "expense" ? "-" : "+"}
+        {Math.abs(row.amount).toFixed(2)} грн.
       </TableCell>
       <TableCell>
         <IconButton
@@ -109,17 +109,28 @@ function rowContent(_index: number, row: Expense) {
   );
 }
 
-export default function ExpenseTable() {
+export default function Table({ type, rows }: Props) {
+  const currentCategories =
+    type === "expense" ? expenseCategories : incomeCategories;
+
   return (
-    <Paper style={{ height: 400, width: "100%", display: 'flex', justifyContent: 'space-between', gap: '20px'}}>
+    <Paper
+      style={{
+        height: 400,
+        width: "100%",
+        display: "flex",
+        justifyContent: "space-between",
+        gap: "20px",
+      }}
+    >
       <TableVirtuoso
         data={rows}
         components={VirtuosoTableComponents}
         fixedHeaderContent={fixedHeaderContent}
-        itemContent={rowContent}
+        itemContent={(index, row) =>
+          rowContent(index, row, type, currentCategories)
+        }
       />
-{/* 
-      <Summary /> */}
     </Paper>
   );
 }

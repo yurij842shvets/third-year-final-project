@@ -8,14 +8,20 @@ dayjs.extend(customParseFormat);
 
 const dateFormat = "YYYY/MM/DD";
 
-const TableDatePicker: React.FC = () => (
+interface TableDatePickerProps {
+  value?: string;
+  onChange: (date: string) => void;
+}
+
+const TableDatePicker: React.FC<TableDatePickerProps> = ({value, onChange}) => (
   <Space vertical size={12}>
     <div style={{ display: "flex", alignItems: 'center', gap: '15px' }}>
       <FaCalendarAlt />
       <DatePicker
-        defaultValue={dayjs("2015/01/01", dateFormat)}
-        format={dateFormat}
-      />
+          value={value ? dayjs(value, dateFormat) : undefined}
+          format={dateFormat}
+          onChange={(date) => onChange(date ? dayjs(date).format(dateFormat) : "")}
+        />
     </div>
   </Space>
 );

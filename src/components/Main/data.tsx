@@ -2,7 +2,7 @@ interface Category {
   id: number;
   name: string;
 }
-export const categories: Category[] = [
+export const expenseCategories: Category[] = [
   { id: 1, name: "Транспорт" },
   { id: 2, name: "Продукти" },
   { id: 3, name: "Здоров’я" },
@@ -14,4 +14,9 @@ export const categories: Category[] = [
   { id: 9, name: "Спорт, хобі" },
   { id: 10, name: "Навчання" },
   { id: 11, name: "Інше" },
+];
+
+export const incomeCategories: Category[] = [
+  { id: 1, name: "Зарплата" },
+  { id: 2, name: "Фріланс" },
 ];
