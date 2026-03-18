@@ -4,7 +4,7 @@ import Table from "./Table";
 import Summary from "./Summary";
 import { useState, useEffect } from "react";
 import Categories from "./Categories";
-import { expenseCategories, incomeCategories } from "./data";
+import { expenseCategories, incomeCategories } from "../../data";
 
 interface Row {
   id: number;

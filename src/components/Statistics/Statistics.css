@@ -1,0 +1,52 @@
+.back-arrow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.expense-income-wrapper {
+    background-color: #fff;
+    width: 1060px;
+    height: 50px;
+    border-radius: 30px;
+    display: flex;
+    justify-content: space-evenly;
+    margin: 20px auto;
+}
+.expense-income-wrapper > h3 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.income-number {
+    color: #407946;
+}
+.expense-number {
+    color: #E53935;
+}
+.arrow {
+  width: 4px;
+  height: 10px;
+  background-color: #FF751D;
+}
+.upper-left {
+  transform: rotate(-45deg) translate(-10px, 22px);
+}
+.lower-left {
+  transform: translate(9px, 18px) rotate(45deg);
+}
+.flex {
+  display: flex;
+  justify-content: center;
+}
+.upper-right {
+  transform: rotate(45deg) translate(10px, 22px);
+}
+
+.lower-right {
+  transform: translate(-8px, 18px) rotate(-45deg);
+}
+.current-slider-category {
+    margin: 17px 20px;
+}
+

@@ -9,7 +9,7 @@ import TableRow from "@mui/material/TableRow";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { TableVirtuoso, type TableComponents } from "react-virtuoso";
-import { expenseCategories, incomeCategories } from "./data";
+import { expenseCategories, incomeCategories } from "../../data";
 
 type Props = {
   type: "expense" | "income";

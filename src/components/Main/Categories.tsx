@@ -1,4 +1,4 @@
-import { expenseCategories, incomeCategories } from "./data";
+import { expenseCategories, incomeCategories } from "../../data";
 import "./MainPage.css";
 
 interface CategoriesProps {

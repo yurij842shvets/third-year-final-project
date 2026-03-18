@@ -2,7 +2,7 @@ import './MainPage.css'
 
 interface Row {
   id: number;
-  date: string; // формат YYYY/MM/DD
+  date: string;
   description: string;
   category: string;
   amount: number;
