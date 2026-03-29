@@ -13,10 +13,11 @@ import { expenseCategories, incomeCategories } from "../../data";
 
 type Props = {
   type: "expense" | "income";
-  rows: Expense[];
+  rows: Data[];
+  onDeleteRow?: (id: number) => void;
 };
 
-interface Expense {
+interface Data {
   id: number;
   date: string;
   description: string;
@@ -25,7 +26,7 @@ interface Expense {
 }
 
 interface ColumnData {
-  dataKey: keyof Expense;
+  dataKey: keyof Data;
   label: string;
   numeric?: boolean;
   width?: number;
@@ -39,7 +40,7 @@ const columns: ColumnData[] = [
   { dataKey: "id", label: "", width: 50 },
 ];
 
-const VirtuosoTableComponents: TableComponents<Expense> = {
+const VirtuosoTableComponents: TableComponents<Data> = {
   Scroller: React.forwardRef<HTMLDivElement, any>((props, ref) => (
     <TableContainer component={Paper} {...props} ref={ref} />
   )),
@@ -78,9 +79,10 @@ function fixedHeaderContent() {
 
 function rowContent(
   _index: number,
-  row: Expense,
+  row: Data,
   type: "expense" | "income",
   currentCategories: typeof expenseCategories | typeof incomeCategories,
+  onDeleteRow?: (id: number) => void
 ) {
   const categoryName =
     currentCategories.find((c) => c.name === row.category)?.name ||
@@ -100,7 +102,7 @@ function rowContent(
       <TableCell>
         <IconButton
           size="small"
-          onClick={() => alert(`Видалити ${row.description}`)}
+          onClick={() => onDeleteRow && onDeleteRow(row.id)}
         >
           <DeleteIcon fontSize="small" />
         </IconButton>
@@ -109,7 +111,7 @@ function rowContent(
   );
 }
 
-export default function Table({ type, rows }: Props) {
+export default function Table({ type, rows, onDeleteRow }: Props) {
   const currentCategories =
     type === "expense" ? expenseCategories : incomeCategories;
 
@@ -128,7 +130,7 @@ export default function Table({ type, rows }: Props) {
         components={VirtuosoTableComponents}
         fixedHeaderContent={fixedHeaderContent}
         itemContent={(index, row) =>
-          rowContent(index, row, type, currentCategories)
+          rowContent(index, row, type, currentCategories, onDeleteRow)
         }
       />
     </Paper>

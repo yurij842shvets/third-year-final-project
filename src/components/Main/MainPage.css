@@ -61,7 +61,7 @@ input::placeholder {
 }
 .table {
   height: 579px;
-  width: 1060px;
+  width: 1400px;
   background-color: #fff;
   border-radius: 0 30px;
 }
@@ -105,13 +105,14 @@ input::placeholder {
 }
 .table-data-enter-part {
   display: flex;
+  justify-content: center;
   align-items: center;
   padding: 20px 0;
-  gap: 15px;
+  gap: 30px;
 }
 .summary-wrapper {
   background-color: #f5f6fb;
-  width: 230px;
+  width: 280px;
   height: 230px;
   border-radius: 30px;
 }

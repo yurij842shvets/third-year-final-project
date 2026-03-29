@@ -1,5 +1,6 @@
 import './MainPage.css'
 
+
 interface Row {
   id: number;
   date: string;
@@ -15,12 +16,24 @@ interface SummaryProps {
 
 
 export default function Summary({rows}: SummaryProps) {
-    const total = rows.reduce((acc, row) => acc + row.amount, 0)
+   const monthlyTotal = rows.reduce((acc, row) => {
+    const date = new Date(row.date)
+    const month = date.toLocaleString("uk-UA", { month: "long" })
+    if (!acc[month]) {
+      acc[month] = 0
+    }
+    acc[month] += row.amount
+
+    return acc
+   },  {} as Record<string, number>)
     return (
         <>
         <div className="summary-wrapper">
             <h3 className="summary">Зведення</h3>
-            <p>Сума: {total.toFixed(2)} грн.</p>
+            {Object.entries(monthlyTotal).map(([month, total]) => (
+            <p key={month}>{month}: {total.toFixed(2)} грн.</p>
+            ))}
+
         </div>
         </>
     )

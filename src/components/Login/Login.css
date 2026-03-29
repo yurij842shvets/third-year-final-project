@@ -1,6 +1,5 @@
 .logo {
   display: flex;
-  justify-content: center;
   align-items: center;
 }
 .main {
@@ -21,13 +20,12 @@
 }
 .title {
   font-size: 102px;
-  color: #000;
-  margin-right: 350px;
+  margin-left: 250px;
 }
 .secondary-title {
   font-size: 16px;
   color: #52555f;
-  margin-right: 350px;
+  margin-left: 250px;
 }
 .login-page-icons {
   position: absolute;

@@ -1,0 +1,36 @@
+.signup-form {
+  width: 436px;
+  height: 430px;
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  border: 1px solid #000;
+  position: absolute;
+  right: 100px;
+  top: 400px;
+}
+.signup-form-input {
+  border: 1px solid #F6F7FB;
+  background-color: #F6F7FB;
+  width: 265px;
+  height: 52px;
+  border-radius: 30px;
+  margin: 0 0 20px 0;
+}
+.signup-form-label {
+  color: #000;
+}
+.signup-form-signup-button {
+  width: 125px;
+  height: 44px;
+  border-radius: 16px;
+  color: #fff;
+  background-color: #ff751d;
+  margin-bottom: 20px;
+}
+input::placeholder {
+  padding: 0 20px;
+}

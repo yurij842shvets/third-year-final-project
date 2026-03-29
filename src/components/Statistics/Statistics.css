@@ -1,33 +1,33 @@
 .back-arrow {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 .expense-income-wrapper {
-    background-color: #fff;
-    width: 1060px;
-    height: 50px;
-    border-radius: 30px;
-    display: flex;
-    justify-content: space-evenly;
-    margin: 20px auto;
+  background-color: #fff;
+  width: 1060px;
+  height: 50px;
+  border-radius: 30px;
+  display: flex;
+  justify-content: space-evenly;
+  margin: 20px auto;
 }
 .expense-income-wrapper > h3 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
 .income-number {
-    color: #407946;
+  color: #407946;
 }
 .expense-number {
-    color: #E53935;
+  color: #e53935;
 }
 .arrow {
   width: 4px;
   height: 10px;
-  background-color: #FF751D;
+  background-color: #ff751d;
 }
 .upper-left {
   transform: rotate(-45deg) translate(-10px, 22px);
@@ -38,6 +38,7 @@
 .flex {
   display: flex;
   justify-content: center;
+  margin: 0 auto;
 }
 .upper-right {
   transform: rotate(45deg) translate(10px, 22px);
@@ -47,6 +48,28 @@
   transform: translate(-8px, 18px) rotate(-45deg);
 }
 .current-slider-category {
-    margin: 17px 20px;
+  margin: 17px 20px;
 }
-
+.transactions-images-wrapper {
+  width: 1060px;
+  height: 358px;
+  background-color: #fff;
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+}
+.transaction-images-categories-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 610px;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  gap: 20px;
+}
+.transaction-image-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

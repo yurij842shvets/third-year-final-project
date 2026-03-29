@@ -1,6 +1,6 @@
 import logo from "../../assets/logo.png";
 import loginPageIcons from "../../assets/login-page-icons.png";
-import LoginForm from "../LoginForm/LoginForm";
+import LoginForm from "./LoginForm/LoginForm";
 import "./Login.css";
 
 export default function Login() {

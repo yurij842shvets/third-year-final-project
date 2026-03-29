@@ -1,8 +1,11 @@
-import { useState } from "react";
 import "./Statistics.css";
 
-export default function ExpensesIncomeSlider() {
-  const [current, setCurrent] = useState<number>(0);
+interface Props {
+  current: number;
+  setCurrent: React.Dispatch<React.SetStateAction<number>>;
+}
+
+export default function ExpensesIncomeSlider({ current, setCurrent }: Props) {
 
   const categories: string[] = ["ВИТРАТИ", "ДОХІД"];
 
