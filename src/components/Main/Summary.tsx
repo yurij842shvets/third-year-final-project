@@ -1,15 +1,5 @@
 import './MainPage.css'
-
-
-interface Row {
-  id: number;
-  date: string;
-  description: string;
-  category: string;
-  amount: number;
-  type: "expense" | "income";
-}
-
+import type { Row } from '../Types/types';
 interface SummaryProps {
   rows: Row[];
 }

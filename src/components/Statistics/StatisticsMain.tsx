@@ -6,11 +6,14 @@ import { useState, useEffect } from "react";
 import Chart from "./Chart";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../redux/hooks/hooks";
+import type { Row } from "../Types/types";
 
 export default function StatisticsMain() {
+  const [rows, setRows] = useState<Row[]>([]);
   const [current, setCurrent] = useState<number>(0);
   const [balance, setBalance] = useState(0);
   const navigate = useNavigate()
+  const [selectedPeriod, setSelectedPeriod] = useState("03");
   const { currentUser } = useAppSelector((state) => state.auth);
 
   const handleNavigateToMain = () => {
@@ -27,6 +30,29 @@ export default function StatisticsMain() {
     }
   }, [currentUser])
 
+  useEffect(() => {
+  if (!currentUser) return;
+
+  const storageKey = `financeRows_${currentUser.email}`;
+  const savedRows = localStorage.getItem(storageKey);
+
+  if (savedRows) {
+    try {
+      setRows(JSON.parse(savedRows));
+    } catch {
+      setRows([]);
+    }
+  }
+}, [currentUser]);
+
+const totalExpenses = rows
+  .filter(r => r.type === "expense")
+  .reduce((acc, r) => acc + r.amount, 0);
+
+  const totalIncome = rows
+  .filter(r => r.type === "income")
+  .reduce((acc, r) => acc + r.amount, 0);
+
   return (
     <>
       <main className="main-page-main">
@@ -42,16 +68,16 @@ export default function StatisticsMain() {
 
         <div className="expense-income-wrapper">
           <h3>
-            Витрати: <p className="expense-number">- 18 000.00 грн</p>
+            Витрати: <p className="expense-number">- {totalExpenses.toFixed(2)} грн</p>
           </h3>
           <h3>
-            Доходи: <p className="income-number">+ 45 000.00 грн</p>
+            Доходи: <p className="income-number">+ {totalIncome.toFixed(2)} грн</p>
           </h3>
         </div>
 
         <div className="transactions-images-wrapper">
           <ExpensesIncomeSlider current={current} setCurrent={setCurrent} />
-          <TransactionsImages type={current === 0 ? "expense" : "income"} />
+          <TransactionsImages type={current === 0 ? "expense" : "income"} rows={rows} selectedPeriod={selectedPeriod} />
           <Chart current={current}/>
         </div>
       </main>

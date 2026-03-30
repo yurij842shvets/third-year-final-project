@@ -4,17 +4,9 @@ import Table from "./Table";
 import Summary from "./Summary";
 import { useState, useEffect } from "react";
 import Categories from "./Categories";
-import { expenseCategories, incomeCategories } from "../../data";
 import { useAppSelector } from "../../redux/hooks/hooks";
+import type { Row } from "../Types/types";
 
-interface Row {
-  id: number;
-  date: string;
-  description: string;
-  category: string;
-  amount: number;
-  type: "expense" | "income";
-}
 
 export default function TableWrapper() {
   const { currentUser } = useAppSelector((state) => state.auth);
@@ -25,12 +17,6 @@ export default function TableWrapper() {
   const [category, setCategory] = useState<number | null>(null);
   const [date, setDate] = useState<string>("");
   const [isLoaded, setIsLoaded] = useState(false);
-
-
-  useEffect(() => {
-    console.log("currentUser", currentUser);
-    console.log("rows", rows);
-  }, [currentUser, rows]);
 
   useEffect(() => {
     if (!currentUser) return;
@@ -57,9 +43,7 @@ export default function TableWrapper() {
     const storageKey = `financeRows_${currentUser.email}`;
     localStorage.setItem(storageKey, JSON.stringify(rows));
     console.log("KEY:", `financeRows_${currentUser?.email}`);
-  }, [rows, currentUser]);
-
-
+  }, [rows, currentUser, isLoaded]);
 
   const enterRow = () => {
     if (!currentUser) {
@@ -67,31 +51,20 @@ export default function TableWrapper() {
       return;
     }
 
-    if (!description || !amount || category === null || !date) {
+    if (!description || !amount || Number(amount) <= 0 || category === null || !date) {
       alert("Заповніть всі поля");
       return;
     }
-
-    const categoryName =
-      (tab === "expense"
-        ? expenseCategories.find((c) => c.id === category)
-        : incomeCategories.find((c) => c.id === category)
-      )?.name ?? "";
-
     const newRow: Row = {
       id: Date.now(),
       date,
       description,
-      category: categoryName,
+      categoryId: category!,
       amount: Number(amount),
       type: tab,
     };
 
-    const newRows = [...rows, newRow];
-    setRows(newRows);
-
-    const storageKey = `financeRows_${currentUser.email}`;
-    localStorage.setItem(storageKey, JSON.stringify(newRows));
+    setRows((prev) => [...prev, newRow]);
 
     setDescription("");
     setAmount("");
@@ -101,12 +74,7 @@ export default function TableWrapper() {
 
   const deleteRow = (id: number) => {
     if (!currentUser) return;
-    const filteredRows = rows.filter((r) => r.id !== id);
-    setRows(filteredRows);
-    localStorage.setItem(
-      `financeRows_${currentUser.email}`,
-      JSON.stringify(filteredRows),
-    );
+    setRows((prev) => prev.filter((r) => r.id !== id));
   };
   const clearRow = () => {
     setDescription("");
@@ -115,8 +83,10 @@ export default function TableWrapper() {
     setCategory(null);
   };
 
+  const filteredRows = rows.filter((r) => r.type === tab);
+
   return (
-    <div className="table-wrapper" style={{margin: '0 100px'}}>
+    <div className="table-wrapper" style={{ margin: "0 100px" }}>
       <button
         className="table-spending-button"
         onClick={() => setTab("expense")}
@@ -161,8 +131,12 @@ export default function TableWrapper() {
         </div>
 
         <div className="table-summary-wrapper">
-          <Table type={tab} rows={rows.filter((r) => r.type === tab)} onDeleteRow={deleteRow}/>
-          <Summary rows={rows.filter((r) => r.type === tab)} />
+          <Table
+            type={tab}
+            rows={filteredRows}
+            onDeleteRow={deleteRow}
+          />
+          <Summary rows={filteredRows} />
         </div>
       </div>
     </div>

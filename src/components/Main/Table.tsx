@@ -21,7 +21,7 @@ interface Data {
   id: number;
   date: string;
   description: string;
-  category: string;
+  categoryId: number;
   amount: number;
 }
 
@@ -35,7 +35,7 @@ interface ColumnData {
 const columns: ColumnData[] = [
   { dataKey: "date", label: "Дата", width: 100 },
   { dataKey: "description", label: "Опис", width: 150 },
-  { dataKey: "category", label: "Категорія", width: 120 },
+  { dataKey: "categoryId", label: "Категорія", width: 120 },
   { dataKey: "amount", label: "Сума", width: 80, numeric: true },
   { dataKey: "id", label: "", width: 50 },
 ];
@@ -82,11 +82,11 @@ function rowContent(
   row: Data,
   type: "expense" | "income",
   currentCategories: typeof expenseCategories | typeof incomeCategories,
-  onDeleteRow?: (id: number) => void
+  onDeleteRow?: (id: number) => void,
 ) {
   const categoryName =
-    currentCategories.find((c) => c.name === row.category)?.name ||
-    row.category;
+    currentCategories.find((c) => c.id === row.categoryId)?.name ||
+    row.categoryId;
   return (
     <React.Fragment>
       <TableCell>{row.date}</TableCell>
