@@ -1,30 +1,40 @@
 import {months} from '../../data';
-import { useState } from 'react';
 
-export default function PeriodSlider() {
- const categories: string[] = ["ВИТРАТИ", "ДОХІД"];
+interface Props {
+  selectedPeriod: string;
+  setSelectedPeriod: (value: string) => void
+}
 
-  function previousCategory() {
-    setCurrent((prev) => (prev - 1 + categories.length) % categories.length);
+
+export default function PeriodSlider({selectedPeriod, setSelectedPeriod}: Props) {
+
+  const currentMonth = months.findIndex((month) => month.value === selectedPeriod)
+
+  function previousMonth() {
+    if(currentMonth === 0) return
+    const newMonth = currentMonth - 1
+    setSelectedPeriod(months[newMonth].value)
   }
 
-  function nextCategory() {
-    setCurrent((prev) => (prev + 1) % categories.length);
+  function nextMonth() {
+    if(currentMonth === months.length - 1) return
+    const newMonth = currentMonth + 1
+    setSelectedPeriod(months[newMonth].value)
   }
 
   return (
     <>
       <div className="flex">
         <div className="arrow-container">
-          <div className="arrow upper-right" onClick={previousCategory}></div>
-          <div className="arrow lower-right" onClick={previousCategory}></div>
+          <div className="arrow upper-right" onClick={previousMonth}></div>
+          <div className="arrow lower-right" onClick={previousMonth}></div>
         </div>
         <div>
-          <p className="current-slider-category">{categories[current]}</p>
+          <p className="current-slider-category">{months[currentMonth].label}</p>
         </div>
         <div className="arrow-container">
-          <div className="arrow upper-left" onClick={nextCategory}></div>
-          <div className="arrow lower-left" onClick={nextCategory}></div>
+          <div className="arrow upper-left" onClick={nextMonth}></div>
+          <div className="arrow lower-left" onClick={nextMonth}></div>
         </div>
       </div>
     </>

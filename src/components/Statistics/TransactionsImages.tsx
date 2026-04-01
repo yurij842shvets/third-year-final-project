@@ -4,13 +4,11 @@ import type { Row } from "../Types/types";
 interface Props {
   type: "expense" | "income";
   rows: Row[];
-  selectedPeriod: string;
 }
 
 export default function TransactionsImages({
   type,
   rows,
-  selectedPeriod,
 }: Props) {
   const currentCategories =
     type === "expense" ? expenseCategories : incomeCategories;
@@ -20,8 +18,7 @@ export default function TransactionsImages({
       .filter(
         (r) =>
           r.categoryId === c.id &&
-          r.type === type &&
-          r.date.startsWith(`2026-${selectedPeriod}`),
+          r.type === type
       )
       .reduce((sum, r) => sum + r.amount, 0);
     return { ...c, total };
