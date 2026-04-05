@@ -1,5 +1,7 @@
 import { BarChart, Bar, XAxis, YAxis, Tooltip, LabelList } from "recharts";
 import type { Row } from "../Types/types";
+import "../Main/MainPage.css";
+import bottomBackground from "../../assets/background.png";
 
 type Props = {
   current: number;
@@ -29,17 +31,28 @@ export default function Chart({ current, rows }: Props) {
   );
 
   return (
-    <BarChart width={600} height={400} data={data}>
-      <XAxis dataKey="name" />
-      <YAxis hide />
-      <Tooltip formatter={(v) => `${v} грн`} />
-      <Bar dataKey="value" fill={"#ff6b00"} radius={[12, 12, 0, 0]}>
-        <LabelList
-          dataKey="value"
-          position="top"
-          formatter={(v) => `${Number(v).toLocaleString()} грн`}
-        />
-      </Bar>
-    </BarChart>
+    <>
+      <BarChart
+        width={500}
+        height={400}
+        data={data}
+        style={{ marginTop: "100px" }}
+      >
+        <XAxis dataKey="name" />
+        <YAxis hide />
+        <Tooltip formatter={(v) => `${v} грн`} />
+        <Bar dataKey="value" fill={"#ff6b00"} radius={[12, 12, 0, 0]}>
+          <LabelList
+            dataKey="value"
+            position="top"
+            formatter={(v) => `${Number(v).toLocaleString()} грн`}
+          />
+        </Bar>
+      </BarChart>
+      <div
+        className="bottom-background"
+        style={{ backgroundImage: `url(${bottomBackground})` }}
+      ></div>
+    </>
   );
 }

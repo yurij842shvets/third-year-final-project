@@ -14,7 +14,7 @@ export default function StatisticsMain() {
   const [current, setCurrent] = useState<number>(0);
   const [balance, setBalance] = useState(0);
   const navigate = useNavigate();
-  const [selectedPeriod, setSelectedPeriod] = useState("03");
+  const [selectedPeriod, setSelectedPeriod] = useState("04");
   const { currentUser } = useAppSelector((state) => state.auth);
 
   const handleNavigateToMain = () => {
@@ -22,14 +22,15 @@ export default function StatisticsMain() {
   };
 
   useEffect(() => {
-    if (!currentUser) return;
-    const balanceKey = `balance_${currentUser.email}`;
-    const savedBalance = localStorage.getItem(balanceKey);
+  if (!currentUser) return;
 
-    if (savedBalance) {
-      setBalance(Number(savedBalance));
-    }
-  }, [currentUser]);
+  const balanceKey = `balance_${currentUser.email}`;
+  const savedBalance = localStorage.getItem(balanceKey);
+
+  if (savedBalance) {
+    setBalance(Number(savedBalance));
+  }
+}, [currentUser]);
 
   useEffect(() => {
     if (!currentUser) return;
@@ -54,11 +55,10 @@ export default function StatisticsMain() {
     );
   });
 
-  const totalExpenses = rows
+  const totalExpenses = filteredRows
     .filter((r) => r.type === "expense")
     .reduce((acc, r) => acc + r.amount, 0);
-
-  const totalIncome = rows
+  const totalIncome = filteredRows
     .filter((r) => r.type === "income")
     .reduce((acc, r) => acc + r.amount, 0);
 
@@ -74,7 +74,7 @@ export default function StatisticsMain() {
           <input
             type="text"
             placeholder="00.00 UAH"
-            value={balance.toFixed(2) + " UAH"}
+            value={balance === 0 ? "" : balance}
           />
           <button>Підтвердити</button>
           <PeriodSlider

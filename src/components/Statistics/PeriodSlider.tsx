@@ -5,7 +5,6 @@ interface Props {
   setSelectedPeriod: (value: string) => void
 }
 
-
 export default function PeriodSlider({selectedPeriod, setSelectedPeriod}: Props) {
 
   const currentMonth = months.findIndex((month) => month.value === selectedPeriod)

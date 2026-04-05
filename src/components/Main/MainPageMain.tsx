@@ -36,7 +36,7 @@ export default function MainPageMain() {
       <main className="main-page-main">
         <div className="main-page-all-money-section">
           <p>Баланс:</p>
-          <input type="text" placeholder="00.00 UAH" onChange={(e) => setBalance(Number(e.target.value))} value={balance.toFixed(2) + " UAH"}/>
+          <input type="text" placeholder="00.00 UAH" onChange={(e) => setBalance(Number(e.target.value.replace(/[^\d.]/g, "")))} value={balance === 0 ? "" : balance}/>
           <button onClick={() => saveBalance(balance)}>Підтвердити</button>
           <p onClick={handleNavigateToStatistics}>Перейти до розрахунків</p>
           <IoStatsChartSharp />

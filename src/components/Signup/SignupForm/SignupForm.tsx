@@ -14,14 +14,25 @@ export default function SignupForm() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const handleSignup = () => {
-    dispatch(signup({ name, email, password }));
+  const handleSignup = async(e: React.FormEvent) => {
+    e.preventDefault()
+
+    if(!name || !email || !password) {
+      alert('Заповніть всі поля!')
+      return; 
+    }
+
+    try {
+    await dispatch(signup({ name, email, password }));
     navigate("/main");
+    } catch(err) {
+      alert('Помилка реєстрації')
+    }
   };
 
   return (
     <>
-      <form action="" className="signup-form">
+      <form action="" className="signup-form" onSubmit={handleSignup}>
         <h2>Реєстрація</h2>
 
         <label className="signup-form-label" htmlFor="">
@@ -38,7 +49,7 @@ export default function SignupForm() {
         </label>
         <input
           className="signup-form-input"
-          type="text"
+          type="email"
           placeholder="your@email.com"
           onChange={(e) => setEmail(e.target.value)}
         />
@@ -52,7 +63,7 @@ export default function SignupForm() {
           onChange={(e) => setPassword(e.target.value)}
         />
         <div>
-          <button className="signup-form-signup-button" onClick={handleSignup}>
+          <button className="signup-form-signup-button" type="submit" >
             Реєстрація{" "}
           </button>
         </div>

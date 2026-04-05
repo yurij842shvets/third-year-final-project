@@ -49,7 +49,7 @@ useEffect(() => {
         </label>
         <input
           className="login-form-input"
-          type="text"
+          type="email"
           placeholder="your@email.com"
           onChange={(e) => setEmail(e.target.value)}
         />

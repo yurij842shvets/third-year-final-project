@@ -5,6 +5,10 @@
   border-right: 1px solid #e0e5eb;
   padding-right: 20px;
 }
+
+.main-page-link:last-child {
+  text-decoration: underline;
+}
 .main-page-header {
   display: flex;
   justify-content: space-between;
@@ -29,7 +33,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 20px;
+  gap: 30px;
+  margin: 25px 0;
+
 }
 
 .main-page-all-money-section p {
@@ -127,4 +133,11 @@ input::placeholder {
   justify-content: space-around;
   padding: 20px;
   gap: 20px;
+}
+.bottom-background {
+  width: 1329px;
+  height: 252px;
+    background-size: cover; 
+  background-repeat: no-repeat;
+  background-position: center;
 }

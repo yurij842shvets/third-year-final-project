@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import Categories from "./Categories";
 import { useAppSelector } from "../../redux/hooks/hooks";
 import type { Row } from "../Types/types";
-
+import bottomBackground from '../../assets/background.png'
 
 export default function TableWrapper() {
   const { currentUser } = useAppSelector((state) => state.auth);
@@ -51,7 +51,13 @@ export default function TableWrapper() {
       return;
     }
 
-    if (!description || !amount || Number(amount) <= 0 || category === null || !date) {
+    if (
+      !description ||
+      !amount ||
+      Number(amount) <= 0 ||
+      category === null ||
+      !date
+    ) {
       alert("Заповніть всі поля");
       return;
     }
@@ -131,14 +137,12 @@ export default function TableWrapper() {
         </div>
 
         <div className="table-summary-wrapper">
-          <Table
-            type={tab}
-            rows={filteredRows}
-            onDeleteRow={deleteRow}
-          />
+          <Table type={tab} rows={filteredRows} onDeleteRow={deleteRow} />
           <Summary rows={filteredRows} />
         </div>
       </div>
+
+      <div className="bottom-background" style={{ backgroundImage: `url(${bottomBackground})` }}></div>
     </div>
   );
 }
