@@ -52,8 +52,24 @@ const authSlice = createSlice({
       state.currentUser = null;
       localStorage.removeItem("currentUser");
     },
+    googleLogin(state, action: PayloadAction<User>) {
+  const exists = state.users.find((u) => u.email === action.payload.email);
+
+
+  if (exists) {
+    state.currentUser = exists;
+    localStorage.setItem("currentUser", JSON.stringify(exists));
+    return;
+  }
+
+  state.users.push(action.payload);
+  localStorage.setItem("users", JSON.stringify(state.users));
+
+  state.currentUser = action.payload;
+  localStorage.setItem("currentUser", JSON.stringify(action.payload));
+}
   },
 });
 
-export const { signup, login, logout } = authSlice.actions;
+export const { signup, login, logout, googleLogin } = authSlice.actions;
 export default authSlice.reducer;

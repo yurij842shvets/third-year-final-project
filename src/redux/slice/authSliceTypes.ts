@@ -1,9 +1,9 @@
-export type User = {
+export interface User {
   name: string;
   email: string;
-  password: string;
-};
-
+  password?: string; 
+  picture?: string;
+}
 export type AuthState = {
   users: User[];
   currentUser: User | null;
